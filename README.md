@@ -13,8 +13,9 @@ brew install kakoc/tap/hydo
 hydo doctor
 ```
 
-`brew install kakoc/tap/hydo` adds this tap and installs the formula in one step
-(`brew tap kakoc/tap` first works as well). The formula installs the prebuilt Mac release
+`brew install kakoc/tap/hydo` adds this tap, trusts this one formula (Homebrew asks for trust
+in formulae of taps outside Homebrew's own, and naming the formula in full gives it) and
+installs it in one step. The formula installs the prebuilt Mac release
 from the [GitHub releases](https://github.com/kakoc/hydo/releases) of hydo, checked by its
 sha256. After the files are in place, the formula runs `hydo setup`, which checks every file
 against the release's `SHA256SUMS` and against the sha256 pins built into hydo, and signs the
@@ -36,8 +37,11 @@ hydo build hydo.yaml
 hydo run "disk=none | run"
 ```
 
-`brew uninstall hydo` removes everything the formula and `hydo setup` wrote. The images, runs and
-explorations hydo writes into your own directories (`hydo-out/`) stay where you made them.
+`brew uninstall hydo` removes everything the formula and `hydo setup` wrote (the setup record
+`.hydo-setup` and the signed engine are inside the keg); `brew cleanup hydo` removes the
+downloaded tarball from Homebrew's cache, and `brew untrust --formula kakoc/tap/hydo` the trust.
+The images, runs and explorations hydo writes into your own directories (`hydo-out/`) stay where
+you made them.
 
 ## Licenses
 
