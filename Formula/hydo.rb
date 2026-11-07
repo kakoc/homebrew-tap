@@ -6,14 +6,16 @@
 # cleans nor relocates libexec (no permission changes, no install-name changes, no re-signing of
 # the programs, which link only system libraries), so every file still matches the release's
 # SHA256SUMS when the post-install step runs `hydo setup`. That step checks every file against
-# SHA256SUMS and the sha256 pins built into hydo, and signs bin/hydo-hvm (the virtual-machine
-# engine) on this Mac with the hypervisor entitlement. The url and sha256 below are written by the hydo
-# repository's hydo/dist/mac/update-homebrew.sh from the release's SHA256SUMS.
+# SHA256SUMS and the sha256 pins built into hydo. Since 0.2.0 the release's programs come signed
+# with the project's Developer ID and notarized by Apple, bin/hydo-hvm (the virtual-machine
+# engine) with the hypervisor entitlement, so setup leaves them as they are (it signs the engine
+# ad hoc only when it is not signed, as in 0.1.0). The url and sha256 below are written by the
+# hydo repository's hydo/dist/mac/update-homebrew.sh from the release's SHA256SUMS.
 class Hydo < Formula
   desc "Deterministic fault testing of whole systems in a reproducible virtual machine"
   homepage "https://github.com/kakoc/hydo"
-  url "https://github.com/kakoc/hydo/releases/download/v0.1.0/hydo-mac-0.1.0.tar.gz"
-  sha256 "5c02e7f364424e97aad67a7fa91b73d29a8466e5fe17ea4bd540edc06dac9806"
+  url "https://github.com/kakoc/hydo/releases/download/v0.2.0/hydo-mac-0.2.0.tar.gz"
+  sha256 "2cfacb95235b2486020725476944af0757d51ab8cbac05cad7170bdcdd52d4f0"
   # hydo's own code. hydo's Linux kernel module (GPL-2.0-only) is in the Linux release only and
   # not in this tarball. The tarball also carries third-party software under its own licenses,
   # among them the arm64 Linux guest kernels and BusyBox (GPL-2.0-only); THIRD-PARTY.md and
@@ -44,9 +46,10 @@ class Hydo < Formula
 
   def caveats
     <<~EOS
-      hydo setup ran after the installation: it checked every file and signed the engine
-      #{opt_libexec}/bin/hydo-hvm with the hypervisor entitlement.
-      If it did not complete, run it again:
+      hydo setup ran after the installation: it checked every file. The programs come signed
+      with the project's Developer ID and notarized, the engine #{opt_libexec}/bin/hydo-hvm
+      with the hypervisor entitlement (hydo doctor names the signer).
+      If setup did not complete, run it again:
         hydo setup
       Then check this Mac and the installation:
         hydo doctor
