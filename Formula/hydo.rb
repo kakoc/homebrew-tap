@@ -14,8 +14,8 @@
 class Hydo < Formula
   desc "Deterministic fault testing of whole systems in a reproducible virtual machine"
   homepage "https://github.com/kakoc/hydo"
-  url "https://github.com/kakoc/hydo/releases/download/v0.3.2/hydo-mac-0.3.2.tar.gz"
-  sha256 "2aec23c47241590d722e9de77e3a68c267045a0ed740c3450b757fe30505c03b"
+  url "https://github.com/kakoc/hydo/releases/download/v0.3.3/hydo-mac-0.3.3.tar.gz"
+  sha256 "1a59cb8571bcfe1e509e1f0f4a006c3f204dc0eddeec0c4aaefabfb04632e35d"
   # hydo's own code. hydo's Linux kernel module (GPL-2.0-only) is in the Linux release only and
   # not in this tarball. The tarball also carries third-party software under its own licenses,
   # among them the arm64 Linux guest kernels and BusyBox (GPL-2.0-only); THIRD-PARTY.md and
